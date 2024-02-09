@@ -1,0 +1,7 @@
+﻿{
+    "npmName": "@LeX142/test-openapi",
+    "useSingleRequestParameter": true,
+    "legacyDiscriminatorBehavior": false,
+    "disallowAdditionalPropertiesIfNotPresent": false,
+    "useObjectParameters": true
+}
