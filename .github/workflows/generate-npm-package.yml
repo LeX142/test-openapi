@@ -65,7 +65,9 @@ jobs:
         with:
           name: package
       - name: Publish package
-        run: npm publish
+        run: |
+          echo ${{ secrets.GITHUB_TOKEN }}
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
