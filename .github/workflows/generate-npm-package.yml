@@ -30,7 +30,7 @@ jobs:
           node-version: ${{matrix.node-version}}
       - name: Install dependencies
         working-directory: storage/api-docs/tmp
-        run: npm ci
+        run: npm install
 
       - name: Build
         working-directory: storage/api-docs/tmp
