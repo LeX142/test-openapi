@@ -34,8 +34,6 @@ jobs:
     name: 'Publish package to Github.com'
     needs: build
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.API_TOKEN }}
     strategy:
           matrix:
             node-version: [ 20.x ]
@@ -64,7 +62,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.API_TOKEN }}
         run: |
-          npm config set '//npm.pkg.github.com/:_authToken' '${{ GITHUB_TOKEN }}'
+          npm config set '//npm.pkg.github.com/:_authToken' '${{ vars.API_TOKEN }}'
           npm config set @Lex142:registry 'https://github.com/Lex142/test-openapi.git'
           npm publish
 
