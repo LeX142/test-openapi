@@ -45,22 +45,24 @@ jobs:
 
       - name: Use Node.js ${{matrix.node-version}}
         uses: actions/setup-node@v4
-        env:
-          GITHUB_TOKEN: ${{ secrets.API_TOKEN }}
         with:
           node-version: ${{matrix.node-version}}
           registry-url: 'https://npm.pkg.github.com'
           # Defaults to the user or organization that owns the workflow file
           scope: '@LeX142'
+
       - uses: actions/download-artifact@v4
         with:
           name: package
+
       - name: Install dependencies
         run: npm install
 
       - name: Build
         run: npm run build
       - name: Publish package
+        env:
+          GITHUB_TOKEN: ${{ secrets.API_TOKEN }}
         run: |
           npm config set '//npm.pkg.github.com/:_authToken' '${{ GITHUB_TOKEN }}'
           npm config set @Lex142:registry 'https://github.com/Lex142/test-openapi.git'
