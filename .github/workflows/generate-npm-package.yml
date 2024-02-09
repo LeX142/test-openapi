@@ -62,7 +62,8 @@ jobs:
           npm config set '//npm.pkg.github.com/:_authToken' ${NPM_TOKEN}
           npm config set @Lex142:registry 'https://npm.pkg.github.com'
           npm publish
-
+        env:
+          NPM_TOKEN: ${{secrets.API_TOKEN}}
 
   #        run: |
 #          npm ci
