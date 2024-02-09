@@ -7,36 +7,34 @@ on:
 #      - 'storage/api-docs/api-docs.json'
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    strategy:
-          matrix:
-            node-version: [ 20.x ]
-    steps:
-      - name: Checkout repository changes
-        uses: actions/checkout@v4
-
-      - name: Generate code
-        uses: hatamiarash7/openapi-generator@v0.3.0
-        with:
-          generator: typescript-fetch
-          openapi-file: storage/api-docs/api-docs.json
-          output-dir: storage/api-docs/tmp/
-          command-args: '-c ts-gen-config.json --global-property skipFormModel=false --git-user-id "LeX142" --git-repo-id "test-openapi"'
-      - uses: actions/upload-artifact@v4
-        with:
-          name: package
-          path: storage/api-docs/tmp/
-
+#  build:
+#    runs-on: ubuntu-latest
+#    strategy:
+#          matrix:
+#            node-version: [ 20.x ]
+#    steps:
+#      - name: Checkout repository changes
+#        uses: actions/checkout@v4
+#
+#      - name: Generate code
+#        uses: hatamiarash7/openapi-generator@v0.3.0
+#        with:
+#          generator: typescript-fetch
+#          openapi-file: storage/api-docs/api-docs.json
+#          output-dir: storage/api-docs/tmp/
+#          command-args: '-c ts-gen-config.json --global-property skipFormModel=false --git-user-id "LeX142" --git-repo-id "test-openapi"'
+#      - uses: actions/upload-artifact@v4
+#        with:
+#          name: package
+#          path: storage/api-docs/tmp/
+#
   publish:
     name: 'Publish package to Github.com'
-    needs: build
+#    needs: build
     runs-on: ubuntu-latest
     strategy:
           matrix:
             node-version: [ 20.x ]
-    env:
-      NODE_AUTH_TOKEN: ${{ secrets.API_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -63,10 +61,7 @@ jobs:
           echo 'TOKEN: ${{secrets.API_TOKEN}}'
           npm config set '//npm.pkg.github.com/:_authToken' ${{secrets.API_TOKEN}}
           npm config set @Lex142:registry https://npm.pkg.github.com
-          cat .npmrc
           npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.API_TOKEN }}
 
 
   #        run: |
