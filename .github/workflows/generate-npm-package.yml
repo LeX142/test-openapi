@@ -23,19 +23,6 @@ jobs:
           openapi-file: storage/api-docs/api-docs.json
           output-dir: storage/api-docs/tmp/
           command-args: '-c ts-gen-config.json --global-property skipFormModel=false --git-user-id "LeX142" --git-repo-id "test-openapi"'
-      # Setup .npmrc file to publish to GitHub Packages
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{matrix.node-version}}
-      - name: Install dependencies
-        working-directory: storage/api-docs/tmp
-        run: npm install
-
-      - name: Build
-        working-directory: storage/api-docs/tmp
-        run: npm run build
-
       - uses: actions/upload-artifact@v4
         with:
           name: package
@@ -48,6 +35,8 @@ jobs:
     strategy:
           matrix:
             node-version: [ 20.x ]
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.API_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -59,14 +48,22 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           # Defaults to the user or organization that owns the workflow file
           scope: '@LeX142'
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.API_TOKEN }}
       - uses: actions/download-artifact@v4
         with:
           name: package
+
+      - name: Install dependencies
+        working-directory: storage/api-docs/tmp
+        run: npm install
+
+      - name: Build
+        working-directory: storage/api-docs/tmp
+        run: npm run build
       - name: Publish package
         run: |
-          echo ${{ secrets.API_TOKEN }}
+          echo 'TOKEN: ${{secrets.API_TOKEN}}'
+          npm config set '//npm.pkg.github.com/:_authToken' ${{secrets.API_TOKEN}}
+          npm config set @Lex142:registry https://npm.pkg.github.com
           npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.API_TOKEN }}
