@@ -3,8 +3,8 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'storage/api-docs/api-docs.json'
+#    paths:
+#      - 'storage/api-docs/api-docs.json'
 
 jobs:
   generate-client:
