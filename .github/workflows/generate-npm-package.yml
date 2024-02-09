@@ -36,14 +36,14 @@ jobs:
         working-directory: storage/api-docs/tmp
         run: yarn run build
 
-      - name: Build package
-        working-directory: storage/api-docs/tmp
-        run: yarn pack -f ../package.tgz
+#      - name: Build package
+#        working-directory: storage/api-docs/tmp
+#        run: yarn pack -f ../package.tgz
 
       - uses: actions/upload-artifact@v3
         with:
-          name: package.tgz
-          path: storage/api-docs/package.tgz
+          name: package
+          path: storage/api-docs/tmp/
 
   publish:
     name: 'Publish package to Github.com'
@@ -62,11 +62,11 @@ jobs:
           node-version: ${{matrix.node-version}}
           registry-url: 'https://npm.pkg.github.com'
           # Defaults to the user or organization that owns the workflow file
-          scope: '@LeX142/test-openapi'
+          scope: '@LeX142'
 
       - uses: actions/download-artifact@v3
         with:
-          name: package.tgz
+          name: package
       - name: Publish package
         run: yarn publish
         env:
