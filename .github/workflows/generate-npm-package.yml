@@ -30,15 +30,11 @@ jobs:
           node-version: ${{matrix.node-version}}
       - name: Install dependencies
         working-directory: storage/api-docs/tmp
-        run: yarn --frozen-lockfile
+        run: npm ci
 
       - name: Build
         working-directory: storage/api-docs/tmp
-        run: yarn run build
-
-#      - name: Build package
-#        working-directory: storage/api-docs/tmp
-#        run: yarn pack -f ../package.tgz
+        run: npm run build
 
       - uses: actions/upload-artifact@v3
         with:
@@ -63,12 +59,13 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           # Defaults to the user or organization that owns the workflow file
           scope: '@LeX142'
-
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/download-artifact@v3
         with:
           name: package
       - name: Publish package
-        run: yarn publish
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
