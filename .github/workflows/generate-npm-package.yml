@@ -60,8 +60,7 @@ jobs:
         run: |
           npm config set '//npm.pkg.github.com/:_authToken' ${{secrets.GITHUB_TOKEN}}
           npm config set @LeX142:registry https://npm.pkg.github.com
-          cat package.json
-          cat ~/.npmrc
+          sed -e '/"author": "OpenAPI-Generator",/"author": "OpenAPI-Generator","publishConfig": {"registry": "https://npm.pkg.github.com/"},/' package.json
           npm publish
 
   #        run: |
