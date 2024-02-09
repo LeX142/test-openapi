@@ -17,11 +17,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Generate code
-        uses: hatamiarash7/openapi-generator@v0.2.0
+        uses: hatamiarash7/openapi-generator@v0.3.0
         with:
           generator: typescript
-          openapi-file: /github/workspace/storage/api-docs/api-docs.json
-          output-dir: /github/workspace/storage/api-docs/tmp
+          openapi-file: storage/api-docs/api-docs.json
+          output-dir: storage/api-docs/tmp
 
       # Setup .npmrc file to publish to GitHub Packages
       - name: Build package
@@ -30,21 +30,23 @@ jobs:
           node-version: '20.x'
           registry-url: 'https://npm.pkg.github.com'
           # Defaults to the user or organization that owns the workflow file
-          scope: '@globaldrive/my-back'
+          scope: '@LeX142/test-openapi'
           run: |
             npm ci
             npm build
-      - name: Publish package
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20.x'
-          registry-url: 'https://npm.pkg.github.com'
-          # Defaults to the user or organization that owns the workflow file
-          scope: '@LeX142/test-openapi'
-          run: |
-            cd /github/workspace/storage/api-docs/tmp/
-            npm run build
-            npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Publish package
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version: '20.x'
+#          registry-url: 'https://npm.pkg.github.com'
+#          # Defaults to the user or organization that owns the workflow file
+#          scope: '@LeX142/test-openapi'
+#          run: |
+#            cd storage/api-docs/tmp/
+#            npm build
+#            npm publish
+#        env:
+#          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
