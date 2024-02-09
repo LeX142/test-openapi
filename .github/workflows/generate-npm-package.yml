@@ -19,9 +19,9 @@ jobs:
       - name: Generate code
         uses: hatamiarash7/openapi-generator@v0.3.0
         with:
-          generator: typescript
+          generator: typescript-axios
           openapi-file: storage/api-docs/api-docs.json
-          output-dir: storage/api-docs/tmp
+          output-dir: /github/workspace/storage/api-docs/tmp/
   build-package:
     runs-on: ubuntu-latest
     steps:
@@ -34,7 +34,7 @@ jobs:
           # Defaults to the user or organization that owns the workflow file
           scope: '@LeX142/test-openapi'
       - run: |
-          ls -l storage/api-docs/tmp
+          ls -l /github/workspace/typescript-axios
           cd storage/api-docs/tmp
           npm ci
           npm build
