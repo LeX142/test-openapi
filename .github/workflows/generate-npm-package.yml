@@ -30,10 +30,10 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           # Defaults to the user or organization that owns the workflow file
           scope: '@LeX142/test-openapi'
-        working-directory: '/github/workspace/typescript-fetch-client'
-        run: |
-          npm ci
-          npm publish
+          working-directory: '/github/workspace/typescript-fetch-client'
+          run: |
+            npm ci
+            npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #      - name: Publish package
