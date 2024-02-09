@@ -59,11 +59,9 @@ jobs:
       - name: Build
         run: npm run build
       - name: Publish package
-        env:
-          GITHUB_TOKEN: ${{ secrets.API_TOKEN }}
         run: |
-          npm config set '//npm.pkg.github.com/:_authToken' '${{ vars.API_TOKEN }}'
-          npm config set @Lex142:registry 'https://github.com/Lex142/test-openapi.git'
+          npm config set '//npm.pkg.github.com/:_authToken' '${{ secrets.API_TOKEN }}'
+          npm config set @Lex142:registry 'https://npm.pkg.github.com'
           npm publish
 
   #        run: |
