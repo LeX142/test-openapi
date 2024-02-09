@@ -31,10 +31,8 @@ jobs:
           # Defaults to the user or organization that owns the workflow file
           scope: '@LeX142/test-openapi'
       - run: |
-          ls -l /github/workspace/storage/api-docs/tmp/
           cd /github/workspace/storage/api-docs/tmp/
-          npm ci
-          npm build
+          yarn run build
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #      - name: Publish package
