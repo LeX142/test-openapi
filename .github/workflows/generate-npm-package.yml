@@ -60,8 +60,8 @@ jobs:
         run: npm run build
       - name: Publish package
         run: |
-          echo "${{NPM_TOKEN}}"
-          npm config set '//npm.pkg.github.com/:_authToken' ${{NPM_TOKEN}}
+          echo "${NPM_TOKEN}"
+          npm config set '//npm.pkg.github.com/:_authToken' ${NPM_TOKEN}
           npm config set @Lex142:registry 'https://npm.pkg.github.com'
           npm publish
 
