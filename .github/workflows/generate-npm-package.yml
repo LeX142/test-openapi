@@ -22,16 +22,20 @@ jobs:
           generator: typescript
           openapi-file: storage/api-docs/api-docs.json
           output-dir: storage/api-docs/tmp
-
+  build-package:
+    runs-on: ubuntu-latest
+    steps:
       # Setup .npmrc file to publish to GitHub Packages
-      - name: Build package
+      - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
           registry-url: 'https://npm.pkg.github.com'
           # Defaults to the user or organization that owns the workflow file
           scope: '@LeX142/test-openapi'
-        run: |
+      - run: |
+          ls -l storage/api-docs/tmp
+          cd storage/api-docs/tmp
           npm ci
           npm build
         env:
