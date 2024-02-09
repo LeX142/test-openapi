@@ -36,7 +36,7 @@ jobs:
         working-directory: storage/api-docs/tmp
         run: npm run build
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: package
           path: storage/api-docs/tmp/
@@ -61,7 +61,7 @@ jobs:
           scope: '@LeX142'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: package
       - name: Publish package
