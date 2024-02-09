@@ -51,19 +51,19 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: package
+          working-directory: storage/api-docs/tmp
 
       - name: Install dependencies
-        working-directory: storage/api-docs/tmp
         run: npm install
 
       - name: Build
-        working-directory: storage/api-docs/tmp
         run: npm run build
       - name: Publish package
         run: |
           echo 'TOKEN: ${{secrets.API_TOKEN}}'
           npm config set '//npm.pkg.github.com/:_authToken' ${{secrets.API_TOKEN}}
           npm config set @Lex142:registry https://npm.pkg.github.com
+          cat .npmrc
           npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.API_TOKEN }}
