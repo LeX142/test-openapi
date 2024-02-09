@@ -1,4 +1,4 @@
 *
 !tmp/
-!public/
 !.gitignore
+!api-docs.json

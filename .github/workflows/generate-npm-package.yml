@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'storage/api-docs/api-docs.json'
 
 jobs:
   generate-client:
@@ -19,6 +21,7 @@ jobs:
         with:
           generator: typescript
           openapi-file: /github/workspace/storage/api-docs/api-docs.json
+          output-dir: /github/workspace/storage/api-docs/tmp
 
       # Setup .npmrc file to publish to GitHub Packages
       - name: Build package
