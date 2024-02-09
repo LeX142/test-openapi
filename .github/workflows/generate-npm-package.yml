@@ -5,8 +5,6 @@ on:
       - main
 #    paths:
 #      - 'storage/api-docs/api-docs.json'
-env:
-  API_TOKEN: ${{vars.API_TOKEN}}
 
 jobs:
   build:
@@ -60,8 +58,10 @@ jobs:
         run: npm run build
       - name: Publish package
         run: |
-          npm config set '//npm.pkg.github.com/:_authToken' '${{ secrets.API_TOKEN }}'
-          npm config set @Lex142:registry 'https://npm.pkg.github.com'
+          npm config set '//npm.pkg.github.com/:_authToken' ${{secrets.GITHUB_TOKEN}}
+          npm config set @LeX142:registry https://npm.pkg.github.com
+          cat package.json
+          cat ~/.npmrc
           npm publish
 
   #        run: |
