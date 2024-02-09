@@ -31,9 +31,9 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           # Defaults to the user or organization that owns the workflow file
           scope: '@LeX142/test-openapi'
-          run: |
-            npm ci
-            npm build
+        run: |
+          npm ci
+          npm build
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #      - name: Publish package
