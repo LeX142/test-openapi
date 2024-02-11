@@ -65,7 +65,7 @@ jobs:
           npm config set @lex142:registry https://npm.pkg.github.com
           # sed -e 's/\"author\"\: \"OpenAPI-Generator\",/\"author\"\: \"OpenAPI-Generator\",\"publishConfig\"\: \{\"registry\"\: \"https\:\/\/npm.pkg.github.com\/\"\},/' package.json
           # cat package.json
-          npm unpublish
+          npm unpublish --force
           npm version patch
           npm publish
 #          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
