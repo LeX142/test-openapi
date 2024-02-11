@@ -1,5 +1,6 @@
 ﻿{
-    "npmName": "@LeX142/test-openapi",
+    "npmName": "@lex142/test-openapi",
+    "npmRepository": "https://npm.pkg.github.com/",
     "useSingleRequestParameter": true,
     "legacyDiscriminatorBehavior": false,
     "disallowAdditionalPropertiesIfNotPresent": false,

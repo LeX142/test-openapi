@@ -22,7 +22,7 @@ jobs:
           generator: typescript-fetch
           openapi-file: storage/api-docs/api-docs.json
           output-dir: storage/api-docs/tmp/
-          command-args: '-c ts-gen-config.json --global-property skipFormModel=false --git-user-id "LeX142" --git-repo-id "test-openapi"'
+          command-args: '-c ts-gen-config.json --global-property skipFormModel=false --git-user-id "lex142" --git-repo-id "test-openapi"'
       - uses: actions/upload-artifact@v4
         with:
           name: package
@@ -36,7 +36,7 @@ jobs:
           matrix:
             node-version: [ 20.x ]
     permissions:
-      contents: write
+      contents: read
       packages: write
     steps:
       - name: Checkout
@@ -62,26 +62,11 @@ jobs:
       - name: Publish package
         run: |
           npm config set '//npm.pkg.github.com/:_authToken' ${{secrets.GITHUB_TOKEN}}
-          npm config set @LeX142:registry https://npm.pkg.github.com
-          sed -e 's/\"author\"\: \"OpenAPI-Generator\",/\"author\"\: \"OpenAPI-Generator\",\"publishConfig\"\: \{\"registry\"\: \"https\:\/\/npm.pkg.github.com\/\"\},/' package.json
-          cat package.json
+          npm config set @lex142:registry https://npm.pkg.github.com
+          # sed -e 's/\"author\"\: \"OpenAPI-Generator\",/\"author\"\: \"OpenAPI-Generator\",\"publishConfig\"\: \{\"registry\"\: \"https\:\/\/npm.pkg.github.com\/\"\},/' package.json
+          # cat package.json
+          npm unpublish
+          npm version patch
           npm publish
-
-  #        run: |
-#          npm ci
-#          npm build
-#          npm publish
-#      - name: Publish package
-#        uses: actions/setup-node@v3
-#        with:
-#          node-version: '20.x'
-#          registry-url: 'https://npm.pkg.github.com'
-#          # Defaults to the user or organization that owns the workflow file
-#          scope: '@LeX142/test-openapi'
-#          run: |
-#            cd storage/api-docs/tmp/
-#            npm build
-#            npm publish
-#        env:
 #          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
