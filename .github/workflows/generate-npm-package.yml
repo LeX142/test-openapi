@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies from composer.json
         uses: addnab/docker-run-action@v3
         with:
-          image: globaldrive/php-composer:8.2
+          image: ${{ github.repository_owner }}/php-composer:8.2
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
