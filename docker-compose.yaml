@@ -1,0 +1,19 @@
+version: "3.3"
+services:
+  # utils
+  codegen:
+    image: openapitools/openapi-generator-cli:latest
+    hostname: codegen
+    volumes:
+      - ./:/work:delegated
+      - ./storage/api-docs/tmp/:/swagger-frontend:delegated
+      #command: sh -c "ping 127.0.0.1"
+    command: /usr/local/bin/docker-entrypoint.sh generate -g typescript-fetch -i /work/storage/api-docs/api-docs.json -o /swagger-frontend -c /work/ts-gen-config.json --global-property skipFormModel=false --git-user-id "LeX142" --git-repo-id "test-openapi"
+  npmbuild:
+    image: node:current-alpine
+    hostname: npm-build
+    working_dir: /swagger-frontend
+    #command: "npm install && npm run build && npm login --scope=@LeX142 --auth-type=legacy --registry='https://npm.pkg.github.com' && npm publish"
+    command: "tail -f /dev/null"
+    volumes:
+      - ./storage/api-docs/tmp/:/swagger-frontend:delegated

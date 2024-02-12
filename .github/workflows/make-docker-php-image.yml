@@ -1,0 +1,33 @@
+name: Create php docker image for run composer install in branch
+on:
+  push:
+    branches:
+      - TAS-1204-openapi-generator
+      - openapi-npm-package
+    paths:
+      - '_docker/services/php/**'
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository changes
+        uses: actions/checkout@v4
+      - name: Create Dockerfile from template for composer.json install
+        run: |
+          ls -la _docker/services/php/
+          cat _docker/services/php/templates/Dockerfile.template > /tmp/composer-Dockerfile
+          cat _docker/services/php/templates/Dockerfile.composer.template >> /tmp/composer-Dockerfile
+
+      - name: Build latest version of php docker image and publish to GitHub Registry
+        uses: elgohr/Publish-Docker-Github-Action@v5
+        with:
+          name: ${{ github.repository_owner}}/php-composer
+          tags: "latest,8.2"
+          username: ${{ github.repository_owner}}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
+          dockerfile: /tmp/composer-Dockerfile

@@ -3,8 +3,8 @@ on:
   push:
     branches:
       - main
-#    paths:
-#      - 'storage/api-docs/api-docs.json'
+    paths:
+      - 'storage/api-docs/api-docs.json'
 
 jobs:
   build:
@@ -29,7 +29,7 @@ jobs:
           path: storage/api-docs/tmp/
 
   publish:
-    name: 'Publish package to Github.com'
+    name: 'Build & Publish package to Github.com (must be different version with latest package)'
     needs: build
     runs-on: ubuntu-latest
     strategy:
@@ -63,8 +63,6 @@ jobs:
         run: |
           npm config set '//npm.pkg.github.com/:_authToken' ${{secrets.GITHUB_TOKEN}}
           npm config set @lex142:registry https://npm.pkg.github.com
-          # sed -e 's/\"author\"\: \"OpenAPI-Generator\",/\"author\"\: \"OpenAPI-Generator\",\"publishConfig\"\: \{\"registry\"\: \"https\:\/\/npm.pkg.github.com\/\"\},/' package.json
-          # cat package.json
           npm publish
 #          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
