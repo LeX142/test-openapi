@@ -3,10 +3,31 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'storage/api-docs/api-docs.json'
+#    paths:
+#      - 'storage/api-docs/api-docs.json'
 
 jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      packages: read
+    steps:
+      - name: Checkout repository changes
+        uses: actions/checkout@v4
+
+      - name: Install dependencies from composer.json
+        uses: addnab/docker-run-action@v3
+        with:
+          image: globaldrive/php-composer:8.2
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          options: -v ${{ github.workspace }}:/app
+          run: |
+            php --ri curl
+
   build:
     runs-on: ubuntu-latest
     strategy:
