@@ -1,9 +1,9 @@
 name: Create php docker image for run composer install in branch
 on:
   push:
-#    branches:
-#      - TAS-1204-openapi-generator
-#      - openapi-npm-package
+    branches:
+      - TAS-1204-openapi-generator
+      - openapi-npm-package
 #    paths:
 #      - '_docker/services/php/**'
 
