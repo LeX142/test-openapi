@@ -23,7 +23,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - uses: kohlerdominik/docker-run-action@v1
         with:
-          image: ghcr.io/${{ github.repository }}/php-composer:latest
+          image: ghcr.io/lex142/php-composer:latest
           volumes: ${{ github.workspace }}:/workspace
           run: |
             php --ri curl
